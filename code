@@ -1,0 +1,179 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <ctime>
+using namespace std;
+
+class SuperMarketBill {
+public:
+    string Customer_Name;
+    string billDate;
+    string billNo;
+    int totalitem;
+    double t_Amount;
+    double cgst, sgst;
+    double discount10;
+    double f_discount;
+    double Net_Amount;
+    double Saved_Amount;
+
+    static string shopname;
+    static string shopaddress;
+
+    // Item structure
+    struct Item {
+        string itemName;
+        int qty;
+        double price;
+        double total;
+    };
+
+    Item* items;
+
+    // Header constructor
+    SuperMarketBill() {
+        cout << "\n===============================================================================\n";
+        cout << "                               " << shopname << "\n";
+        cout << "                                   " << shopaddress << "\n";
+        cout << "===============================================================================\n";
+    }
+
+    // Parameterized constructor
+    SuperMarketBill(string cname, Item list[], int n) {
+        Customer_Name = cname;
+        items = list;
+        totalitem = n;
+
+        // Date & Time
+        time_t now = time(0);
+        tm* ltm = localtime(&now);
+
+        char dateStr[30];
+        strftime(dateStr, sizeof(dateStr), "%d-%m-%Y %H:%M:%S", ltm);
+        billDate = dateStr;
+
+        char billStr[30];
+        strftime(billStr, sizeof(billStr), "SM%Y%m%d%H%M%S", ltm);
+        billNo = billStr;
+
+        // Total bill calc
+        t_Amount = 0;
+        for (int i = 0; i < n; i++) {
+            t_Amount += items[i].total;
+        }
+
+        // 10% discount for >= 1000
+        discount10 = (t_Amount > 1000) ? t_Amount * 0.10 : 0;
+
+        // After discount
+        double after10discount = t_Amount - discount10;
+
+        cgst = after10discount * 0.025;
+        sgst = after10discount * 0.025;
+
+        double AmountAfterTax = after10discount + cgst + sgst;
+
+        f_discount = AmountAfterTax * 0.05;
+
+        Net_Amount = AmountAfterTax - f_discount;
+        Saved_Amount = discount10 + f_discount;
+    }
+
+    static void header() {
+        cout << "---------------------------------------------------------------------------------------\n";
+        cout << "                            CUSTOMER BILL DETAILS\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+    }
+
+    void showCustomerInfo() {
+        cout << "Bill No : " << billNo << "\n";
+        cout << "Bill Date : " << billDate << "\n";
+        cout << "Customer Name : " << Customer_Name << "\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+    }
+
+    void showItemDetails() {
+        cout << left << setw(6) << "S.No"
+             << setw(15) << "Item Name"
+             << setw(8) << "Qty"
+             << setw(10) << "Price"
+             << setw(10) << "Total" << "\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+
+        for (int i = 0; i < totalitem; i++) {
+            cout << left << setw(6) << (i + 1)
+                 << setw(15) << items[i].itemName
+                 << setw(8) << items[i].qty
+                 << setw(10) << fixed << setprecision(2) << items[i].price
+                 << setw(10) << fixed << setprecision(2) << items[i].total << "\n";
+        }
+    }
+
+    void showBillSummary() {
+        cout << "---------------------------------------------------------------------------------------\n";
+        cout << left << setw(25) << "Total Amount" << " : ₹" << fixed << setprecision(2) << t_Amount << "\n";
+        cout << left << setw(25) << "10% Discount" << " : ₹" << discount10 << "\n";
+        cout << left << setw(25) << "CGST (2.5%)" << " : ₹" << cgst << "\n";
+        cout << left << setw(25) << "SGST (2.5%)" << " : ₹" << sgst << "\n";
+        cout << left << setw(25) << "Final Discount (5%)" << " : ₹" << f_discount << "\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+        cout << left << setw(25) << "Net Amount" << " : ₹" << Net_Amount << "\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+
+        cout << "\t\tYOU HAVE SAVED : ₹" << Saved_Amount << "\n";
+        cout << "---------------------------------------------------------------------------------------\n";
+
+        // Print time only
+        time_t now = time(0);
+        tm* ltm = localtime(&now);
+        char timeOnly[20];
+        strftime(timeOnly, sizeof(timeOnly), "%I:%M:%S %p", ltm);
+        cout << "Time : " << timeOnly << "\n";
+
+        cout << "---------------------------------------------------------------------------------------\n";
+        cout << "                    THANK YOU FOR SHOPPING WITH US!   \n";
+        cout << "\n===============================================================================\n";
+    }
+};
+
+string SuperMarketBill::shopname = "SMART MART SUPERMARKET";
+string SuperMarketBill::shopaddress = "Latur, Maharashtra";
+
+int main() {
+    cout << "------------------------------ BILL DATA ENTRY --------------------------------------\n\n";
+
+    string cname;
+    cout << "Enter Customer Name : ";
+    getline(cin, cname);
+
+    int n;
+    cout << "Enter Number of Items : ";
+    cin >> n;
+    cin.ignore();
+
+    SuperMarketBill::Item* items = new SuperMarketBill::Item[n];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter Details For Item " << (i + 1) << ":\n";
+        cout << "Item Name : ";
+        getline(cin, items[i].itemName);
+        cout << "Quantity : ";
+        cin >> items[i].qty;
+        cout << "Price : ";
+        cin >> items[i].price;
+        cin.ignore();
+
+        items[i].total = items[i].qty * items[i].price;
+    }
+
+    SuperMarketBill head;
+    SuperMarketBill::header();
+
+    SuperMarketBill bill(cname, items, n);
+    bill.showCustomerInfo();
+    bill.showItemDetails();
+    bill.showBillSummary();
+
+    delete[] items;
+    return 0;
+}
