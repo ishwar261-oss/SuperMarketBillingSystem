@@ -120,7 +120,7 @@ Developed using object-oriented programming, dynamic arrays, and formatted outpu
 ---
 
 ## 👤 Author
-**Your Name (Idz)**  
-GitHub: your-github-username  
-LinkedIn: your-linkedin-link
+**Your Name : IDZz 
+GitHub: your: ishwar261-oss
+
 
