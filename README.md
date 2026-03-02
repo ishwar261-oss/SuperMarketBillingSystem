@@ -41,13 +41,6 @@ Perfect for **students, beginners, mini-projects, and portfolio GitHub repositor
 
 ---
 
-## 📂 Project Structure
-```
-SuperMarketBill.cpp     → Bill logic + classes + main program
-```
-
----
-
 ## 🛠️ How to Compile & Run
 
 ### **1️⃣ Compile**
@@ -96,17 +89,6 @@ Time : 12:30:15 PM
 ---------------------------------------------------------------------------------------
                     THANK YOU FOR SHOPPING WITH US!
 ===============================================================================
-```
-
----
-
-## 🎯 What You Will Learn
-- Real-life billing logic  
-- OOP in C++  
-- Working with classes & dynamic memory  
-- Output formatting using `setw()`  
-- Tax + discount calculations  
-- Clean and structured code design  
 
 ---
 
