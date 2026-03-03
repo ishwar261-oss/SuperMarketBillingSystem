@@ -31,16 +31,6 @@ Perfect for **students, beginners, mini-projects, and portfolio GitHub repositor
 
 ---
 
-## 🧩 Technologies Used
-- **C++**
-- **Classes & Objects**
-- **Dynamic arrays**
-- **`iomanip` for formatting**
-- **`ctime` for date/time**
-- **Console-based UI**
-
----
-
 ## 🛠️ How to Compile & Run
 
 ### **1️⃣ Compile**
