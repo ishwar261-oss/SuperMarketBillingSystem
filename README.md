@@ -92,7 +92,8 @@ Developed using object-oriented programming, dynamic arrays, and formatted outpu
 ---
 
 ## 👤 Author
-**Your Name : IDZz 
-GitHub: your: ishwar261-oss
+  IDzz
+
+
 
 
