@@ -20,7 +20,7 @@ public:
     static string shopname;
     static string shopaddress;
 
-    // Item structure
+    
     struct Item {
         string itemName;
         int qty;
@@ -30,7 +30,6 @@ public:
 
     Item* items;
 
-    // Header constructor
     SuperMarketBill() {
         cout << "\n===============================================================================\n";
         cout << "                               " << shopname << "\n";
@@ -38,13 +37,11 @@ public:
         cout << "===============================================================================\n";
     }
 
-    // Parameterized constructor
-    SuperMarketBill(string cname, Item list[], int n) {
+   SuperMarketBill(string cname, Item list[], int n) {
         Customer_Name = cname;
         items = list;
         totalitem = n;
 
-        // Date & Time
         time_t now = time(0);
         tm* ltm = localtime(&now);
 
@@ -56,16 +53,13 @@ public:
         strftime(billStr, sizeof(billStr), "SM%Y%m%d%H%M%S", ltm);
         billNo = billStr;
 
-        // Total bill calc
         t_Amount = 0;
         for (int i = 0; i < n; i++) {
             t_Amount += items[i].total;
         }
 
-        // 10% discount for >= 1000
-        discount10 = (t_Amount > 1000) ? t_Amount * 0.10 : 0;
+discount10 = (t_Amount > 1000) ? t_Amount * 0.10 : 0;
 
-        // After discount
         double after10discount = t_Amount - discount10;
 
         cgst = after10discount * 0.025;
@@ -123,7 +117,7 @@ public:
         cout << "\t\tYOU HAVE SAVED : ₹" << Saved_Amount << "\n";
         cout << "---------------------------------------------------------------------------------------\n";
 
-        // Print time only
+    
         time_t now = time(0);
         tm* ltm = localtime(&now);
         char timeOnly[20];
