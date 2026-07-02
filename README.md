@@ -82,7 +82,7 @@ Time : 12:30:15 PM
 
 ---
 
-## 📝 Project Description (Use in GitHub & Resume)
+## 📝 Project Description
 ```
 A C++ console application that simulates a real supermarket billing system. 
 It supports multiple items, auto-calculates discounts, GST, final amount, and prints a formatted retail-style receipt. 
